@@ -1,0 +1,98 @@
+#include <stdio.h>
+
+// Global variables
+int pin = 1234; // Default PIN
+double balance = 1000.0; // Default balance
+
+// Function prototypes
+void displayMenu();
+void withdraw();
+void deposit();
+void checkBalance();
+void changePin();
+
+int main() {
+    int option;
+
+    do {
+        displayMenu();
+        printf("Enter your choice: ");
+        scanf("%d", &option);
+
+        switch (option) {
+            case 1:
+                withdraw();
+                break;
+            case 2:
+                deposit();
+                break;
+            case 3:
+                checkBalance();
+                break;
+            case 4:
+                changePin();
+                break;
+            case 5:
+                printf("Thank you for using the ATM!\n");
+                break;
+            default:
+                printf("Invalid option. Please try again.\n");
+        }
+    } while (option != 5);
+
+    return 0;
+}
+
+void displayMenu() {
+    printf("\nATM Simulator\n");
+    printf("1. Withdraw Money\n");
+    printf("2. Deposit Money\n");
+    printf("3. Check Balance\n");
+    printf("4. Change PIN\n");
+    printf("5. Exit\n");
+}
+
+void withdraw() {
+    double amount;
+
+    printf("Enter the amount to withdraw: ");
+    scanf("%lf", &amount);
+
+    if (amount > balance) {
+        printf("Insufficient balance.\n");
+    } else {
+        balance -= amount;
+        printf("Withdrawal successful. New balance: %.2lf\n", balance);
+    }
+}
+
+void deposit() {
+    double amount;
+
+    printf("Enter the amount to deposit: ");
+    scanf("%lf", &amount);
+
+    balance += amount;
+    printf("Deposit successful. New balance: %.2lf\n", balance);
+}
+
+void checkBalance() {
+    printf("Current balance: %.2lf\n", balance);
+}
+
+void changePin() {
+    int oldPin, newPin;
+
+    printf("Enter your current PIN: ");
+    scanf("%d", &oldPin);
+
+    if (oldPin != pin) {
+        printf("Incorrect PIN.\n");
+    } else {
+        printf("Enter your new PIN: ");
+        scanf("%d", &newPin);
+
+        pin = newPin;
+        printf("PIN changed successfully.\n");
+    }
+}
